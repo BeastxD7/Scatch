@@ -6,6 +6,11 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const connectDb = require('./config/mongoose-connection')
+const ownersRouter = require('./routes/ownersRouter')
+const usersRouter = require('./routes/usersRouter')
+const productsRouter = require('./routes/productsRouter')
+
 
 
 app.use(express.json());
@@ -14,6 +19,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 app.set('view engine','ejs')
 
+
+app.use('/owners', ownersRouter)
+app.use('/users', usersRouter)
+app.use('/products', productsRouter)
 
 app.get('/', async(req,res) => {
    try {
